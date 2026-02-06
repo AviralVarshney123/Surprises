@@ -22,7 +22,7 @@
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    max-width: 360px;
+    max-width: 380px;
     width: 90%;
   }
 
@@ -37,9 +37,10 @@
     margin-bottom: 30px;
   }
 
-  .buttons {
+  .button-area {
     position: relative;
-    height: 60px;
+    height: 70px;
+    margin-top: 20px;
   }
 
   button {
@@ -48,19 +49,23 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    transition: transform 0.2s ease;
   }
 
   #yes {
     background: #ff4d88;
     color: white;
+    position: relative;
+    z-index: 2;
   }
 
   #no {
     background: #e0e0e0;
     color: #666;
     position: absolute;
-    left: 120px; /* starts next to YES */
+    left: 150px; /* next to YES */
     top: 0;
+    transition: left 0.25s ease, top 0.25s ease;
   }
 </style>
 </head>
@@ -70,13 +75,13 @@
 <div class="card" id="card">
   <h1>Hey Beautiful 💕</h1>
   <p>
-    I have an important question for you…<br/>
-    Something my heart already knows 🥰
+    I need to ask you something…<br/>
+    Please don’t say no 😄
   </p>
 
   <h1>Will you be my Valentine? 💘</h1>
 
-  <div class="buttons">
+  <div class="button-area" id="area">
     <button id="yes">Yes 😍</button>
     <button id="no">No 🙃</button>
   </div>
@@ -84,30 +89,31 @@
 
 <script>
   const noBtn = document.getElementById("no");
-  const yesBtn = document.getElementById("yes");
-  const card = document.getElementById("card");
+  const area = document.getElementById("area");
 
-  function moveNoButton() {
-    const maxX = window.innerWidth - noBtn.offsetWidth;
-    const maxY = window.innerHeight - noBtn.offsetHeight;
+  noBtn.addEventListener("mouseenter", () => {
+    const areaRect = area.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
 
-    const x = Math.random() * maxX;
+    const maxX = areaRect.width - btnRect.width;
+    const maxY = areaRect.height - btnRect.height;
+
+    // Avoid left side (Yes button zone)
+    const minX = 140;
+
+    const x = Math.random() * (maxX - minX) + minX;
     const y = Math.random() * maxY;
 
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
-  }
+  });
 
-  // Moves ONLY when hovered
-  noBtn.addEventListener("mouseenter", moveNoButton);
-
-  yesBtn.addEventListener("click", () => {
-    card.innerHTML = `
+  document.getElementById("yes").addEventListener("click", () => {
+    document.getElementById("card").innerHTML = `
       <h1>Yaaay!! 💖🥰</h1>
       <p>
-        I knew it!<br/>
-        You just made my heart the happiest ever 💞<br/><br/>
-        Happy Valentine’s Day ❤️
+        I knew you’d say yes 😘<br/><br/>
+        You’re officially my Valentine ❤️
       </p>
     `;
   });
