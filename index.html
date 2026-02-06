@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #ffe6ea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+
+  .card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+
+  h1 {
+    color: #e6005c;
+    margin-bottom: 30px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  #yes {
+    background: #ff4d88;
+    color: white;
+  }
+
+  #no {
+    position: absolute;
+    background: #cccccc;
+    color: #555;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <h1>Will you be my Valentine?</h1>
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+</div>
+
+<script>
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const card = document.getElementById("card");
+
+  function moveNoButton() {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+
+  noBtn.addEventListener("mouseenter", moveNoButton);
+
+  yesBtn.addEventListener("click", () => {
+    card.innerHTML = "<h1>Yay! I love you ❤️</h1>";
+  });
+
+  moveNoButton();
+</script>
+
+</body>
+</html>
